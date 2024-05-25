@@ -1,0 +1,28 @@
+@startuml
+
+class Main
+
+abstract Validator{
+  +setNext(Validator v)
+  +check(String data)
+}
+
+class FormatValidator
+class LengthValidator
+class UnicityValidator
+
+Main ..> Validator
+
+Validator <|-- FormatValidator
+Validator <|-- LengthValidator
+Validator <|-- UnicityValidator
+Validator " #next 0..1" --> Validator
+
+note right of Validator::check
+[...]
+if(next != null){
+  next.check(data);
+}
+end note
+
+@enduml
